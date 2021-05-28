@@ -1,24 +1,67 @@
-# README
+# DB設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## usersテーブル
 
-Things you may want to cover:
+| Column             | Type             | Options                        |
+|--------------------|------------------|--------------------------------|
+| nickname           | string           | null: false                    |
+| email              | string           | null: false, unique: true      |
+| encrypted_password | string           | null: false                    |
+| first_name         | string           | null: false                    |
+| last_name          | string           | null: false                    |
+| first_name_kana    | string           | null: false                    |
+| last_name_kana     | string           | null: false                    |
+| birthday           | date             | null: false                    |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :buyers
+- has_many :items
 
-* Configuration
+## addressesテーブル
 
-* Database creation
+| Column           | Type              | Options                          |
+|------------------|-------------------|----------------------------------|
+| post_number      | string            | null: false                      |
+| prefecture_id    | integer           | null: false                      |
+| city             | string            | null: false                      |
+| address          | string            | null: false                      |
+| building_name    | string            |                                  |
+| phone_number     | string            | null: false                      |
+| buyer            | references        | null: false, foreign_key: true   |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to :buyer
 
-* Services (job queues, cache servers, search engines, etc.)
+## itemsテーブル
 
-* Deployment instructions
+| Column            | Type              | Options                          |
+|-------------------|-------------------|----------------------------------|
+| name              | string            | null: false                      |
+| introduction      | text              | null: false                      |
+| category_id       | integer           | null: false                      |
+| status_id         | integer           | null: false                      |
+| shipping_cost_id  | integer           | null: false                      |
+| prefecture_id     | integer           | null: false                      |
+| shipping_day_id   | integer           | null: false                      |
+| price             | integer           | null: false                      |
+| user              | references        | null: false, foreign_key: true   |
 
-* ...
+### Association
+
+- belongs_to :user
+- has_one :buyer
+
+## buyersテーブル
+
+| Column           | Type              | Options                          |
+|------------------|-------------------|----------------------------------|
+| user             | references        | null: false, foreign_key: true   |
+| item             | references        | null: false, foreign_key: true   |
+
+### Association
+
+- belongs_to :item
+- belongs_to :user
+- has_one :address
