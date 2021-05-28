@@ -15,7 +15,7 @@
 
 ### Association
 
-- belongs_to :buyer
+- has_many :buyers
 - has_many :items
 
 ## addressesテーブル
@@ -28,7 +28,7 @@
 | address          | string            | null: false                      |
 | building_name    | string            |                                  |
 | phone_number     | string            | null: false                      |
-| buyer_id         | references        | null: false, foreign_key: true   |
+| buyer            | references        | null: false, foreign_key: true   |
 
 ### Association
 
@@ -46,20 +46,19 @@
 | shipping_cost_id  | integer           | null: false                      |
 | shipping _area_id | integer           | null: false                      |
 | shipping_day_id   | integer           | null: false                      |
-| brand             | string            | null: false                      |
 | price             | integer           | null: false                      |
+| user              | references        | null: false, foreign_key: true   |
 
 ### Association
 
-- belongs_to :user
 - belongs_to :buyer
 
 ## buyersテーブル
 
 | Column           | Type              | Options                          |
 |------------------|-------------------|----------------------------------|
-| user_id          | references        | null: false, foreign_key: true   |
-| item_id          | references        | null: false, foreign_key: true   |
+| user             | references        | null: false, foreign_key: true   |
+| item             | references        | null: false, foreign_key: true   |
 
 ### Association
 
