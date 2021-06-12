@@ -10,7 +10,9 @@ class Item < ApplicationRecord
   validates :shipping_cost_id, presence: true, numericality: { other_than: 1 } 
   validates :prefecture_id, presence: true, numericality: { other_than: 0 } 
   validates :shipping_day_id, presence: true, numericality: { other_than: 1 } 
-  validates :price,  presence: true
+  validates :price, presence: true
+  validates_inclusion_of :price, in: 300..9999999
+  validates :price, numericality: true
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
