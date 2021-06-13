@@ -2,17 +2,22 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  validates :image, presence: true
-  validates :name, presence: true
-  validates :introduction, presence: true
-  validates :category_id, presence: true, numericality: { other_than: 1 }
-  validates :status_id, presence: true, numericality: { other_than: 1 }
-  validates :shipping_cost_id, presence: true, numericality: { other_than: 1 }
-  validates :prefecture_id, presence: true, numericality: { other_than: 0 }
-  validates :shipping_day_id, presence: true, numericality: { other_than: 1 }
-  validates :price, presence: true
-  validates_inclusion_of :price, in: 300..9_999_999
-  validates :price, numericality: true
+  with_options presence: true do
+    validates :image
+    validates :name
+    validates :introduction
+    validates :prefecture_id, numericality: { other_than: 0 }
+    validates :price
+    validates_inclusion_of :price, in: 300..9_999_999
+    validates :price, numericality: true
+    with_options numericality: { other_than: 1 } do
+      validates :category_id
+      validates :status_id
+      validates :shipping_cost_id
+      validates :shipping_day_id
+    end
+
+  end
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
