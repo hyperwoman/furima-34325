@@ -38,27 +38,27 @@ RSpec.describe Item, type: :model do
       end
 
       it 'カテゴリーの情報が空だと保存できないこと' do
-        @item.category_id = ''
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
 
       it '商品の状態についての情報が空だと保存できないこと' do
-        @item.status_id = ''
+        @item.status_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Status can't be blank")
+        expect(@item.errors.full_messages).to include("Status must be other than 1")
       end
 
       it '配送料の負担についての情報が空だと保存できないこと' do
-        @item.shipping_cost_id = ''
+        @item.shipping_cost_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping cost can't be blank")
+        expect(@item.errors.full_messages).to include("Shipping cost must be other than 1")
       end
 
       it '発送元の地域についての情報が空だと保存できないこと' do
-        @item.prefecture_id = ''
+        @item.prefecture_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 0")
       end
 
       it '販売価格についての情報が空だと保存できないこと' do
@@ -67,8 +67,14 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
 
-      it '販売価格が￥300〜￥99999999の間のみ保存可能であること' do
-        @item.price = '299'
+      it '販売価格が￥299以下の場合は保存できないこと' do
+        @item.price = 299
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
+      end
+
+      it '販売価格が￥10000000以上の場合は保存できないこと' do
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
@@ -78,6 +84,19 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
+
+      it '販売価格は英数字混合では保存できないこと' do
+        @item.price = '123ab'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+
+      it '販売価格は半角英字では保存できないこと' do
+        @item.price = 'abc'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+
     end
   end
 end
