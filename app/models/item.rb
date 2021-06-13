@@ -5,13 +5,13 @@ class Item < ApplicationRecord
   validates :image, presence: true
   validates :name, presence: true
   validates :introduction, presence: true
-  validates :category_id, presence: true, numericality: { other_than: 1 } 
-  validates :status_id, presence: true, numericality: { other_than: 1 } 
-  validates :shipping_cost_id, presence: true, numericality: { other_than: 1 } 
-  validates :prefecture_id, presence: true, numericality: { other_than: 0 } 
-  validates :shipping_day_id, presence: true, numericality: { other_than: 1 } 
+  validates :category_id, presence: true, numericality: { other_than: 1 }
+  validates :status_id, presence: true, numericality: { other_than: 1 }
+  validates :shipping_cost_id, presence: true, numericality: { other_than: 1 }
+  validates :prefecture_id, presence: true, numericality: { other_than: 0 }
+  validates :shipping_day_id, presence: true, numericality: { other_than: 1 }
   validates :price, presence: true
-  validates_inclusion_of :price, in: 300..9999999
+  validates_inclusion_of :price, in: 300..9_999_999
   validates :price, numericality: true
 
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -20,5 +20,4 @@ class Item < ApplicationRecord
   belongs_to :shipping_cost
   belongs_to :Prefecture
   belongs_to :shipping_day
-
 end

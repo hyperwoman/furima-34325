@@ -16,7 +16,7 @@ RSpec.describe Item, type: :model do
       it 'ユーザーが紐づいて無いと商品が保存できないこと' do
         @item.user = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("User must exist")
+        expect(@item.errors.full_messages).to include('User must exist')
       end
 
       it '商品画像が空だと保存できないこと' do
@@ -70,13 +70,13 @@ RSpec.describe Item, type: :model do
       it '販売価格が￥300〜￥99999999の間のみ保存可能であること' do
         @item.price = '299'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
 
       it '販売価格は半角数字でないと保存できないこと' do
-        @item.price = '２０００'                                        
+        @item.price = '２０００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")                  
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
     end
   end
