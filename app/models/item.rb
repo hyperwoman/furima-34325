@@ -15,7 +15,6 @@ class Item < ApplicationRecord
       validates :shipping_cost_id
       validates :shipping_day_id
     end
-
   end
 
   extend ActiveHash::Associations::ActiveRecordExtensions
