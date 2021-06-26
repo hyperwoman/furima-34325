@@ -5,4 +5,7 @@ class OrdersController < ApplicationController
     @order_address = OrderAddress.new
   end
 
+  def create
+
+  end
 end
