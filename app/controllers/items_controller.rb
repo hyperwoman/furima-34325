@@ -24,6 +24,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if @item.order.present?
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
 
   def update
