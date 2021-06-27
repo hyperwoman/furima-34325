@@ -25,7 +25,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    order_item
   end
 
   def update
@@ -34,13 +33,11 @@ class ItemsController < ApplicationController
     else
       render :edit
     end
-    order_item
   end
 
   def destroy
     @item.destroy
     redirect_to root_path
-    order_item
   end
 
   private
@@ -61,8 +58,6 @@ class ItemsController < ApplicationController
   def order_item
     if @item.order.present?
       redirect_to root_path
-    else
-      render :edit
     end
   end
 end

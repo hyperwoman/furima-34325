@@ -60,7 +60,13 @@ RSpec.describe OrderAddress, type: :model do
       it '電話番号は12桁の数値では保存できないこと' do
         @order_address.phone_number = '090123456789'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Phone number is invalid')
+        expect(@order_address.errors.full_messages).to include("Phone number Input only number")
+      end
+
+      it '電話番号は英数混合では保存できないこと' do
+        @order_address.phone_number = 'a090-123456'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone number Input only number")
       end
 
       it 'tokenが空では保存できないこと' do
