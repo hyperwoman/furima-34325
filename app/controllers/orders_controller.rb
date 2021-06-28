@@ -2,12 +2,9 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
   before_action :order_item, only: [:index, :create]
-
-  def index
+  before_action :contributor_confirmation, only: [:index, :create]
+    def index
     @order_address = OrderAddress.new
-    if current_user == @item.user
-      redirect_to root_path
-    end
   end
 
   def create
@@ -22,7 +19,6 @@ class OrdersController < ApplicationController
   end
 
   private
-
   def order_params
     params.require(:order_address)
       .permit(
@@ -48,7 +44,6 @@ class OrdersController < ApplicationController
     )
   end
 
-
   def set_item
     @item = Item.find(params[:item_id])
   end
@@ -57,4 +52,8 @@ class OrdersController < ApplicationController
     redirect_to root_path if @item.order.present?
   end
 
+  def contributor_confirmation
+      redirect_to root_path unless current_user == @item.user
+  end
+  end
 end
