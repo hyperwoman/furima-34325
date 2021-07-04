@@ -35,6 +35,11 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'gimei'
+  gem 'capistrano'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano3-unicorn'
 end
 
 group :development do
@@ -72,3 +77,13 @@ gem "aws-sdk-s3", require: false
 group :production do
   gem 'unicorn', '5.4.1'
 end
+
+require "capistrano/setup"
+require "capistrano/deploy"
+require 'capistrano/rbenv'
+require 'capistrano/bundler'
+require 'capistrano/rails/assets'
+require 'capistrano/rails/migrations'
+require 'capistrano3/unicorn'
+
+Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
