@@ -7,10 +7,10 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :introduction
-    validates :prefecture_id, numericality: { other_than: 0 }
-    validates_inclusion_of :price, in: 300..9_999_999
+    validates :prefecture_id, numericality: { other_than: 0, message: 'を入力してください' }
+    validates_inclusion_of :price, in: 300..9_999_999, message: 'は¥300 ~ ¥10000000の範囲で入力してください'
     validates :price, numericality: true
-    with_options numericality: { other_than: 1 } do
+    with_options numericality: { other_than: 1, message: 'を入力してください' } do
       validates :category_id
       validates :status_id
       validates :shipping_cost_id
